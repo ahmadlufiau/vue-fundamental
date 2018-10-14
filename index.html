@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- vue ditandai dengan double kurawal {{ }} -->
+        <h1>{{ message }}</h1>
+        <br>
+        <!--  menggabungkan teks statis dengan vue -->
+        <h1>Pesan {{ message }}</h1>
+        <br>
+        <!-- operasi Javascript untuk menggabungkan dua string -->
+        <h1>{{'Pesan: '+ message}}</h1>
+    </div>
+    <script src="dist/vue.js"></script>
+    <script>
+        // mounted cara 1
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+        // end mounted cara 1
+
+        /* mount point cara 2
+        var app = new Vue({
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+        app.$mount('#app')
+        end mount point cara 2 */
+    </script>
+</body>
+
+</html>
