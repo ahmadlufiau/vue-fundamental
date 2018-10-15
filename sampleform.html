@@ -32,21 +32,26 @@
     <div id="app">
         <!-- submit form -->
         <h2>Submit Form</h2>
-        <form @submit="submitForm($event)" methods="POST">
+        <form ref="formBook" @submit.prevent="submitForm($event)" methods="POST">
+            <p v-if="errors.length"> <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+            </p>
             <label for="title">Title:</label>
             <input type="text" ref="title" name="title" v-model="title">
             <br>
             <label for="description">Description :</label>
-            <textarea name="description" v-model="description"></textarea>
+            <textarea name="description" ref="description" v-model=" description"></textarea>
             <br>
             <label for="authors">Author:</label>
-            <input type="text" name="authors" v-model="authors">
+            <input type="text" ref="authors" name="authors" v-model="authors">
             <br>
             <label for="price">Price:</label>
-            <input type="number" name="prince" v-model.number="price">
+            <input type="number" ref="price" name="prince" v-model.number="price">
             <br>
             <label for="categories">Categories :</label>
-            <select name="categories" multiple v-model="categories">
+            <select name="categories" ref="categories" multiple v-model="categories">
                 <option v-for="option in options" :value="option.value">
                     {{ option.text }}
                 </option>
@@ -61,10 +66,10 @@
         var app = new Vue({
             el: '#app',
             data: {
-                title: '',
-                description: '',
-                price: 0,
-                authors: '',
+                title: 'Google Glass with VueJS',
+                description: 'Control Google Glass with VueJS',
+                price: 75000,
+                authors: 'Ahmad Lufi A U',
                 categories: [],
                 options: [{
                         text: 'Graphics Programming',
@@ -78,29 +83,30 @@
                         text: 'Virtual and Augmented Reality',
                         value: '03'
                     }
-                ]
+                ],
+                errors: []
             },
             methods: {
                 submitForm(event) {
-                    console.log(event)
+                    //console.log(event)
+                    this.errors = []
                     // kode validasi
                     let error = 0
                     if (this.title.length < 3) {
-                        error++
+                        this.errors.push('Title minimal 3 karakter!')
                         this.$refs.title.select()
-                        alert('Title minimal 3 karakter')
                     } else if (this.description.length > 500) {
-                        error++
-                        alert('Description maximal 500 karakter!')
+                        this.errors.push('Description maximal 500 karakter!')
+                        this.$refs.description.select()
                     } else if (this.authors.length < 3) {
-                        error++
-                        alert('Authors minimal 3 karakter!')
+                        this.errors.push('Authors minimal 3 karakter!')
+                        this.$refs.authors.select()
                     } else if (this.price < 0) {
-                        error++
-                        alert('Price tidak boleh minus!')
+                        this.errors.push('Price tidak boleh minus!')
+                        this.$refs.price.select()
                     } else if (this.categories.length === 0) {
-                        error
-                        ++alert('Pilih minimal 1 category!')
+                        this.errors.push('Pilih minimal 1 category!')
+                        this.$refs.categories.focus()
                     }
                     if (error === 0) {
                         alert('Terima kasih telah mengisi data dengan benar!')
