@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        form {
+            border: 1px solid #ddd;
+            padding: 5px;
+            width: 225px;
+            background: #efefef;
+        }
+
+        label {
+            display: block;
+            margin-top: 5px;
+        }
+
+        input,
+        textarea,
+        select,
+        option {
+            min-width: 200px;
+        }
+</style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- submit form -->
+        <h2>Submit Form</h2>
+        <form @submit="submitForm($event)" methods="POST">
+            <label for="title">Title:</label>
+            <input type="text" ref="title" name="title" v-model="title">
+            <br>
+            <label for="description">Description :</label>
+            <textarea name="description" v-model="description"></textarea>
+            <br>
+            <label for="authors">Author:</label>
+            <input type="text" name="authors" v-model="authors">
+            <br>
+            <label for="price">Price:</label>
+            <input type="number" name="prince" v-model.number="price">
+            <br>
+            <label for="categories">Categories :</label>
+            <select name="categories" multiple v-model="categories">
+                <option v-for="option in options" :value="option.value">
+                    {{ option.text }}
+                </option>
+            </select>
+            <br>
+            <label for=""></label>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script src="dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title: '',
+                description: '',
+                price: 0,
+                authors: '',
+                categories: [],
+                options: [{
+                        text: 'Graphics Programming',
+                        value: '01'
+                    },
+                    {
+                        text: 'Mobile Application Development',
+                        value: '02'
+                    },
+                    {
+                        text: 'Virtual and Augmented Reality',
+                        value: '03'
+                    }
+                ]
+            },
+            methods: {
+                submitForm(event) {
+                    console.log(event)
+                    // kode validasi
+                    let error = 0
+                    if (this.title.length < 3) {
+                        error++
+                        this.$refs.title.select()
+                        alert('Title minimal 3 karakter')
+                    } else if (this.description.length > 500) {
+                        error++
+                        alert('Description maximal 500 karakter!')
+                    } else if (this.authors.length < 3) {
+                        error++
+                        alert('Authors minimal 3 karakter!')
+                    } else if (this.price < 0) {
+                        error++
+                        alert('Price tidak boleh minus!')
+                    } else if (this.categories.length === 0) {
+                        error
+                        ++alert('Pilih minimal 1 category!')
+                    }
+                    if (error === 0) {
+                        alert('Terima kasih telah mengisi data dengan benar!')
+                        // kirim data ke server
+                    }
+                    //block redirect ke action
+                    event.preventDefault();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
