@@ -58,6 +58,9 @@
                 </option>
             </select>
             <br>
+            <label for="cover">Cover</label>
+            <input type="file" ref="cover" name="cover">
+            <br>
             <label for=""></label>
             <input type="submit" value="Submit">
         </form>
@@ -118,12 +121,14 @@
 
                         //persiapkan data
                         let formBook = this.$refs.formBook
+                        let cover = this.$refs.cover.files[0]
                         formData = new FormData(formBook)
                         // formData.append('title', this.title)
                         // formData.append('description', this.description)
                         // formData.append('authors', this.authors)
                         // formData.append('price', this.price)
                         // formData.append('categories', this.categories)
+                        formData.append("cover", cover)
 
                         // kirim data ke server
                         let xhttp = new XMLHttpRequest() // create objek XMLHttp
