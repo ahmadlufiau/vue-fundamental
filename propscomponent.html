@@ -24,10 +24,12 @@
 
 <body>
     <div id="app">
-        <book title="C++ High Performance" description="Write code that scales across CPU registers, multicore, and machine clusters"
+        <!-- <book title="C++ High Performance" description="Write code that scales across CPU registers, multicore, and machine clusters"
             image="images/books/c++-high-performance.png">
-        </book>
-        <book v-for="book in books" :key="book.id" :title="book.title" :description="book.description" :image="book.image">
+        </book> -->
+        <!-- <book v-for="book in books" :key="book.id" :title="book.title" :description="book.description" :image="book.image">
+        </book> -->
+        <book v-for="book in books" :key="book.id" :book="book">
         </book>
     </div>
     <script src="dist/vue.js"></script>
@@ -39,11 +41,13 @@
                 }
             },
             props: [
-                'title',
-                'description',
-                'image'
+                // 'title',
+                // 'description',
+                // 'image',
+                'book'
             ],
-            template: '<div :class="classCard"><h3>{{ title }}</h3><img :src="image" style="width:100%"><p v-html="description"></p></div>'
+            // template: '<div :class="classCard"><h3>{{ title }}</h3><img :src="image" style="width:100%"><p v-html="description"></p></div>'
+            template: '<div :class="classCard"><h3>{{ book.title }}</h3></h3><img :src="book.image" style="width:100%"><p v-html="book.description"></p></div>'
         }
 
         new Vue({
