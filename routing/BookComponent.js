@@ -36,19 +36,22 @@ export const BookComponent = {
             }, ]
         }
     },
+    props: [
+        'id'
+    ],
     computed: {
         book() {
             return this.books.filter((book) => {
-                return book.id === parseInt(this.$route.params.id)
-            })
+                return book.id === parseInt(this.id)
+            })[0]
 
             // jika buku tidak ditemukan
-            if (book.length == 0) {
-                alert("Buku tidak ditemukan")
-                this.$router.push("/books")
-            } else {
-                return book[0]
-            }
+            // if (book.length == 0) {
+            //     alert("Buku tidak ditemukan")
+            //     this.$router.push("/books")
+            // } else {
+            //     return book[0]
+            // }
         }
     },
     template: `
