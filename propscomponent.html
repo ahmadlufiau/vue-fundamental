@@ -29,7 +29,8 @@
         </book> -->
         <!-- <book v-for="book in books" :key="book.id" :title="book.title" :description="book.description" :image="book.image">
         </book> -->
-        <book v-for="book in books" :key="book.id" :book="book">
+        <h1>Selected: {{ selectedBook }}</h1>
+        <book v-for="book in books" :key="book.id" :book="book" @selected="selectedBook = $event">
         </book>
     </div>
     <script src="dist/vue.js"></script>
@@ -47,7 +48,7 @@
                 'book'
             ],
             // template: '<div :class="classCard"><h3>{{ title }}</h3><img :src="image" style="width:100%"><p v-html="description"></p></div>'
-            template: '<div :class="classCard"><h3>{{ book.title }}</h3></h3><img :src="book.image" style="width:100%"><p v-html="book.description"></p></div>'
+            template: `<div :class="classCard"><h3>{{ book.title }}</h3><img :src="book.image" style="width:100%"><p v-html="book.description"></p><button @click="$emit('selected', book.title)">Select</button></div>`
         }
 
         new Vue({
@@ -56,6 +57,7 @@
                 'book': BookComponent,
             },
             data: {
+                selectedBook: '',
                 books: [{
                     id: 99,
                     title: 'C++ High Perfomance',
