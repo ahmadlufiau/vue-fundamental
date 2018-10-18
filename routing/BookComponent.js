@@ -63,5 +63,13 @@ export const BookComponent = {
             </li>
         </ul>
     </div>
-    `
+    `,
+    beforeRouteLeave(to, from, next) {
+        const answer = window.confirm('apakah anda yakin akan keluar?')
+        if (answer) {
+            next()
+        } else {
+            next(false)
+        }
+    }
 }

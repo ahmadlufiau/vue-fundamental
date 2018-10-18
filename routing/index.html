@@ -54,7 +54,8 @@
             },
             {
                 path: '/about',
-                component: About
+                component: About,
+                meta: { login: true }
             },
             {
                 path: '/books',
@@ -81,6 +82,15 @@
         var app = new Vue({
             el: '#app',
             router
+        })
+
+        router.beforeEach((to, form, next) => {
+            if(to.matched.some(record => record.meta.login)) {
+                alert('Halaman ini hanya untuk user yang sudah login')
+                next(false)
+            } else {
+                next()
+            }
         })
     </script>
 </body>
