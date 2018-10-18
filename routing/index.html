@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <router-link to="/">Home</router-link>
+            <router-link to="/about">About</router-link>
+            <router-link to="/books">Books</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <script src="../dist/vue.js"></script>
+    <script src="../dist/vue-router.js"></script>
+    <script type="module">
+        // import component
+        import { BooksComponent } from './BooksComponent.js'
+        import { BookComponent } from './BookComponent.js'
+
+        // definisikan konfigurasi component
+        const Home = {
+            template: '<div>Halaman Home</div>'
+        }
+        const About = {
+            template: '<div>Halaman About</div>'
+        }
+
+        // mapping route path dengan componentnya
+        const routes = [{
+                path: '/',
+                component: Home,
+                alias: '/home'
+            },
+            {
+                path: '/about',
+                component: About
+            },
+            {
+                path: '/books',
+                component: BooksComponent
+            },
+            {
+                path: '/book/:id',
+                name: 'book',
+                component: BookComponent
+            },
+            {
+                path: '*',
+                redirect: '/'
+            }
+        ]
+
+        // register routes pada objek router
+        const router = new VueRouter({
+            routes //short `routes: routes`
+        })
+
+        // register objek router pada obke vue
+        var app = new Vue({
+            el: '#app',
+            router
+        })
+    </script>
+</body>
+
+</html>
