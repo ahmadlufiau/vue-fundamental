@@ -14,24 +14,28 @@
     </div>
     <script src="../dist/vue.js"></script>
     <script src="../dist/vuex.js"></script>
-    <script type="module">
-        import { Hello } from "./Hello.js"
-
-        const store = new Vuex.Store({
+    <script>
+        var store = new Vuex.Store({
             strict: true,
-            getters: {
-                counter: state => state.counter
-            },
             state: {
                 counter: 0
             },
             mutations: {
-                //increment: state => state.counter++
-                increment(state) {
-                    setTimeout(() => {
-                        state.counter
-                    }, 1000);
+                increment: state => state.counter++
+            },
+            actions: {
+                increment: (context) => {
+                    context.commit('increment')
                 }
+                // atau
+                /*
+                increment: ({commit}) => {
+                    commit('increment')
+                }
+                */
+            },
+            getters: {
+                counter: state => state.counter
             }
         })
 
@@ -41,10 +45,8 @@
             components: {
                 'hello': Hello
             },
-            // local state as computed
             computed: {
                 counter() {
-                    return store.state.counter
                     return store.getters.counter
                 }
             },
@@ -53,13 +55,12 @@
             <div>
                 {{ counter }}
                 <button @click="increment()"> + </button>
+                <hello></hello>
             </div>
             `,
-            // actions
             methods: {
                 increment() {
-                    //store.commit('increment')
-                    store.state.counter++
+                    store.dispatch('increment');
                 }
             }
         })
