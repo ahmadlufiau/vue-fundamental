@@ -7,7 +7,7 @@
 export default {
   data() {
     return {
-      text: "Hello dari vue-loader"
+      text: "Hello dari vue-loader!"
     };
   }
 };
